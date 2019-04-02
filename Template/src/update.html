@@ -1,0 +1,144 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>DATABASE WEB APPLICATION</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+	<script src="static/jquery.min.js"></script>
+    <script src="static/bootstrap.min.js"></script>
+    <link href="static/bootstrap.min.css" rel="stylesheet">
+    <link href="static/style.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+  </head>
+  <body>
+  <br>
+  </br>
+
+<button type="submit" onclick="insert()">INSERT</button>
+<script>
+    function insert(){
+               location.replace("http://localhost:5000/insert");
+                        }
+</script>
+
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="text text-center">
+					<b>
+                	DATABASE WEB APPLICATION
+                </b>
+				</h1>
+            <h4>Select an option below</h4>
+
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select
+                 <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://127.0.0.1:5000">View Database</a></li>
+                        <li><a  href="http://localhost:5000/insert">Insert Data</a></li>
+                         <li class="active"><a href="http://localhost:5000/update">Update Data</a></li>
+                         <li><a href="http://localhost:5000/del">Delete Data</a></li>
+                    </ul>
+                </div><br>
+                </br>
+
+            <h3 class="text text-left">
+                <kbd>
+                    TABLE
+                </kbd>
+            </h3>
+
+			<table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th>
+							ID
+						</th>
+						<th>
+							NAME
+						</th>
+						<th>
+							CLASS ID
+						</th>
+						<th>
+							CLASS LEADER
+						</th>
+						<th>
+							CREATED ON
+						</th>
+						<th>
+							UPDATED ON
+						</th>
+
+						<th>
+							ACTION
+						</th>
+					</tr>
+				</thead>
+
+				{% for user in Data1 %}
+				<tbody>
+				<tr>
+					<form  method="POST" action="update">
+						<td>
+						<!--<label name="userid">{{user.id}}</label>-->
+							<input type="text" name="id" value="{{user.id}}" readonly />
+						</td>
+						<td>
+							<input type="text" name="name" value="{{user.name}}" />
+						</td>
+						<td>
+							{{user.class_id}}
+						</td>
+						<td>
+							{{user.id}}
+						</td>
+						<td>
+							{{user.created_on}}
+						</td>
+						<td>
+							{{user.updated_on}}
+						</td>
+
+						<td>
+							<!--<input type="text" name="name"/>-->
+                            <button type="submit" onclick="up">UPDATE</button> <input onclick="del()" value="DELETE"/>
+						</td>
+                        <script>
+                            function del(){
+                                location.replace("http://localhost:5000/del");
+                            }
+
+
+                        </script>
+					</form>
+				</tr>
+
+
+				{% endfor %}
+
+
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</div>
+
+
+  </body>
+</html>

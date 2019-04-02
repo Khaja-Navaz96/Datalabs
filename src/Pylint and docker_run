@@ -1,0 +1,39 @@
+SOURCES := $(wildcard *.py)
+
+PYLINT_TARGETS := $(addprefix .pylint/, $(SOURCES))
+
+$(PYLINT_TARGETS): .pylint/%.py: %.py
+    mkdir -p $(dir $@)
+    PYTHONPATH=. epylint3 $< --rcfile=.pylintrc --max-line-length=120
+    touch $@
+
+pylint: $(PYLINT_TARGETS)
+
+clean:
+    rm -vrf .pylint/
+
+.PHONY: pylint
+
+
+
+
+
+docker_run:
+    docker build \
+      --file=./Dockerfile \
+      --tag=my_project ./
+    docker run \
+      --detach=false \
+      --name=my_project \
+      --publish=$(HOST):8080 \
+      my_project
+
+
+
+
+lint: venv
+	${PYTHON} -m pylint --rcfile=pylintrc webapp
+	${PYTHON} -m mypy --ignore-missing-imports webapp
+
+test: venv
+	${PYTHON} -m pytest -vv tests
