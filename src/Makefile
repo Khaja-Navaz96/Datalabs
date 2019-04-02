@@ -1,23 +1,30 @@
-.PHONY: run test pylint db help clean  # Use .PHONY to mark targets that don’t correspond to files.
+.PHONY: run test pylint db help clean coverage  # Use .PHONY to mark targets that don’t correspond to files.
 
 HOST=127.0.0.1
-TEST_PATH=./
+TEST_PATH=/
+$(PYTHON):
+	$(VIRTUALENV) $(VIRTUAL_ENV)
 
 run:
-	python app.py runserver --host $(HOST) --port $(PORT)
-
-test:
-    py.test --verbose --color=yes $(TEST_PATH)
-
-#pylint:
+	python3 app.py runserver --host $(HOST) --port $(PORT)
 
 
-#db:
+test: 
+	pytest pytest-test.py 
 
+coverage:
+	coverage report
+
+pylint:
+	pylint app.py
+	
+
+db:
+	python3 migrate.py
 
 help:
-	@echo "\n"
-	@echo "Hello, Welcome to Help ! Below are the list of commands you may use."
+
+	
 	@echo "\n"
 	@echo "make run      -     Runs the application "app.py" on your local machine"
 	@echo "make test     -     Runs all the test cases"
